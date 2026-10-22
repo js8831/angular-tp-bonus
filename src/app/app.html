@@ -68,9 +68,20 @@
   <p aria-live="polite">{{ filteredEmployees().length }} collègue(s) affiché(s)</p>
 
   <ul class="team">
-    @for (employee of employees; track employee.id) {
+    @for (employee of filteredEmployees(); track employee.id) {
       <li>
         <app-employee-card [employee]="employee"></app-employee-card>
+        <!-- aria-label : sans lui, le lecteur d'ecran annonce trois boutons
+"Retirer"
+sans dire lequel retire qui. -->
+        <button
+          type="button"
+          class="remove"
+          [attr.aria-label]="'Retirer ' + employee.firstName + ' ' + employee.lastName"
+          (click)="remove(employee.id)"
+        >
+          Retirer
+        </button>
       </li>
     } @empty {
       <li>Aucun collègue ne correspond à « {{ search() }} ».</li>

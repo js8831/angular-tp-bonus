@@ -11,6 +11,6 @@ import { StatusBadge } from '../status-badge/status-badge';
 export class EmployeeCard {
   // Donnée reçue du parent : <app-employee-card [employee]="..." />
   // required : le parent est OBLIGÉ de la fournir.
-  // C'est un signal > une fonction comme vu precedemment
+  // C'est un signal > une fonction
   readonly employee = input.required<Employee>();
 }

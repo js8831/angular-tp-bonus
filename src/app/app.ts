@@ -1,9 +1,9 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { EmployeeCard } from './employee-card/employee-card';
 import { LeaveCounter } from './leave-counter/leave-counter';
-import { Employee } from './models/employee';
 import { SearchBox } from './search-box/search-box';
+import { TeamStore } from './team-store';
 
 type Status = 'sur site' | 'en télétravail' | 'absent';
 
@@ -27,46 +27,8 @@ export class App {
   // Un signal qui contient le statut du jour, "sur site" au départ.
   protected readonly status = signal<Status>('sur site');
 
-  // type Employee de l interface dans models
-  protected readonly employees: Employee[] = [
-    {
-      id: 1,
-      firstName: 'Claire',
-      lastName: 'Martin',
-      email: 'claire.martin@techcorp.fr',
-      job: 'Développeuse front-end',
-      department: 'Informatique',
-      remote: true,
-    },
-
-    {
-      id: 2,
-      firstName: 'Julien',
-      lastName: 'Bernard',
-      email: 'julien.bernard@techcorp.fr',
-      job: 'Chef de projet',
-      department: 'Informatique',
-      remote: false,
-    },
-    {
-      id: 3,
-      firstName: 'Sarah',
-      lastName: 'Lefèvre',
-      email: 'sarah.lefevre@techcorp.fr',
-      job: 'Chargée RH',
-      department: 'Ressources humaines',
-      remote: false,
-    },
-    {
-      id: 4,
-      firstName: 'Navin',
-      lastName: 'Ram',
-      email: 'navin.ram@techcorp.fr',
-      job: 'Commercial',
-      department: 'Commercial',
-      remote: false,
-    },
-  ];
+  // inject() : Angular fournit l'instance unique du service.
+  private readonly store = inject(TeamStore);
 
   protected search = signal('');
 
@@ -75,10 +37,17 @@ export class App {
     const text = this.search().trim().toLowerCase();
     // la variable filtre l'array employees et pour chaque employee elle verifie avec includes
     // si le contenu de text correspond au nom et prenom d'un employee
-    return this.employees.filter((employee) =>
-      (employee.firstName + ' ' + employee.lastName).toLowerCase().includes(text),
-    );
+    return this.store
+      .employees()
+      .filter((employee) =>
+        (employee.firstName + ' ' + employee.lastName).toLowerCase().includes(text),
+      );
   });
+
+  // on appelle la fonction remove de TeamStore via l'injection
+  protected remove(id: number): void {
+    this.store.remove(id);
+  }
 
   protected sayHello(): void {
     // fait reference à l'instance de la classe App
