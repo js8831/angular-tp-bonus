@@ -1,93 +1,30 @@
 <h1>TechCorp Equipe</h1>
-<p>Bonjour {{ userName }}</p>
 
-<p>Ma première application Angular.</p>
+<header class="header">
+  <span class="app-name">{{ appName }}</span>
+  <nav aria-label="Navigation principale">
+    <!-- routerLink : change de page sans recharger.
+    routerLinkActive : ajoute la classe "active" au lien de la page affichee.
+    ariaCurrentWhenActive : annonce "page actuelle" au lecteur d'ecran. -->
+    <!-- exact: true = cela signifie qu'ici c'est une correspondance exacte "/" et rien apres
+      on est donc bien sur l'accueil avec / uniquement car les autres pages aussi contiennent "/page2" mais avec un mot apres -->
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      ariaCurrentWhenActive="page"
+    >
+      Accueil
+    </a>
 
-<!-- Une expression peut contenir un calcul ou un appel de methode. -->
-<p>Nous sommes en {{ 2020 + 6 }}. Votre prénom compte {{ userName.length }} lettres.</p>
-<p>En majuscules : {{ userName.toUpperCase() }}</p>
+    <a routerLink="/equipe" routerLinkActive="active" ariaCurrentWhenActive="page">Équipe</a>
+    <a routerLink="/ajouter" routerLinkActive="active" ariaCurrentWhenActive="page">Ajouter</a>
+  </nav>
+</header>
+<main class="container">
+  <!-- La page correspondant a l'adresse s'affiche ici. -->
+  <router-outlet />
+</main>
 
-<!-- type="button" : ce bouton ne sert pas a envoyer un formulaire -->
-<button type="button" (click)="sayHello()">Dire Bonjour</button>
-
-<!-- aria-live : le lecteur d'ecran annonce le message quand il apparait. -->
-<p aria-live="polite">{{ message.toUpperCase() }}</p>
-
-<button type="button" (click)="deleteMsg()">Effacer</button>
-<br />
-
-<!-- # = variable de référence de template : un peu comme le id d'une input
- en js : document.getElementById("#inputRef").value, la valeur contenue dans la balise input ou elle est -->
-<input type="text" (input)="updateInput(inputRef.value)" #inputRef />
-
-<!-- On recupere via l'interpolation la variable déclaré dans le composant -->
-<p>Vous tapez : {{ text }}</p>
-
-<section aria-labelledby="status-title">
-  <h2 id="status-title">Mon statut aujourd'hui</h2>
-  <!-- On lit un signal en l'appelant : status() -->
-  <p>
-    Vous êtes : <strong>{{ status() }}</strong>
-  </p>
-  <button
-    [attr.aria-pressed]="status() === 'sur site'"
-    type="button"
-    (click)="changeStatus('sur site')"
-  >
-    Sur site
-  </button>
-  <button
-    [attr.aria-pressed]="status() === 'en télétravail'"
-    type="button"
-    (click)="changeStatus('en télétravail')"
-  >
-    En teletravail
-  </button>
-  <button
-    [attr.aria-pressed]="status() === 'absent'"
-    type="button"
-    (click)="changeStatus('absent')"
-  >
-    Absent
-  </button>
-</section>
-<section aria-labelledby="leave-title">
-  <h2 id="leave-title">Mes congés</h2>
-  <app-leave-counter></app-leave-counter>
-</section>
-
-<section aria-labelledby="team-title">
-  <h2 id="team-title">L'équipe</h2>
-
-  <!-- [( )] : la recherche circule dans les deux sens entre App et SearchBox. -->
-  <!-- search de la classe equivaut a query(), ils pointent vers la meme information -->
-  <!-- [] quand tu modifie search (le parent) tu changes la propriété value de l'input qui est dans l'enfant -->
-  <!-- () quand on change l'input (l'enfant), sa valeur, on change aussi search le parent -->
-  <!-- la logique est dans searchbox -->
-  <app-search-box [(query)]="search" />
-  <p aria-live="polite">{{ filteredEmployees().length }} collègue(s) affiché(s)</p>
-
-  <ul class="team">
-    @for (employee of filteredEmployees(); track employee.id) {
-      <li>
-        <app-employee-card [employee]="employee"></app-employee-card>
-        <!-- aria-label : sans lui, le lecteur d'ecran annonce trois boutons
-"Retirer"
-sans dire lequel retire qui. -->
-        <button
-          type="button"
-          class="remove"
-          [attr.aria-label]="'Retirer ' + employee.firstName + ' ' + employee.lastName"
-          (click)="remove(employee.id)"
-        >
-          Retirer
-        </button>
-      </li>
-    } @empty {
-      <li>Aucun collègue ne correspond à « {{ search() }} ».</li>
-    }
-  </ul>
-</section>
-
-<!-- Zone d'affichage des pages : elle servira au module 15. -->
-<router-outlet />
+<!-- routerlink evite le rechargement de la page comme avec href qui fait perdre tout l'état de l'app
+ce qui n'est pas dans main ici s'affiche sur toute les pages -->

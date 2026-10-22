@@ -1,0 +1,54 @@
+<h1>Bonjour {{ userName }}</h1>
+
+<!-- Une expression peut contenir un calcul ou un appel de methode. -->
+<p>Nous sommes en {{ 2020 + 6 }}. Votre prénom compte {{ userName.length }} lettres.</p>
+<p>En majuscules : {{ userName.toUpperCase() }}</p>
+
+<!-- type="button" : ce bouton ne sert pas a envoyer un formulaire -->
+<button type="button" (click)="sayHello()">Dire Bonjour</button>
+
+<!-- aria-live : le lecteur d'ecran annonce le message quand il apparait. -->
+<p aria-live="polite">{{ message.toUpperCase() }}</p>
+
+<button type="button" (click)="deleteMsg()">Effacer</button>
+<br />
+
+<!-- # = variable de référence de template : un peu comme le id d'une input
+ en js : document.getElementById("#inputRef").value, la valeur contenue dans la balise input ou elle est -->
+<input type="text" (input)="updateInput(inputRef.value)" #inputRef />
+
+<!-- On recupere via l'interpolation la variable déclaré dans le composant -->
+<p>Vous tapez : {{ text }}</p>
+
+<section aria-labelledby="status-title">
+  <h2 id="status-title">Mon statut aujourd'hui</h2>
+  <!-- On lit un signal en l'appelant : status() -->
+  <p>
+    Vous êtes : <strong>{{ status() }}</strong>
+  </p>
+  <button
+    [attr.aria-pressed]="status() === 'sur site'"
+    type="button"
+    (click)="changeStatus('sur site')"
+  >
+    Sur site
+  </button>
+  <button
+    [attr.aria-pressed]="status() === 'en télétravail'"
+    type="button"
+    (click)="changeStatus('en télétravail')"
+  >
+    En teletravail
+  </button>
+  <button
+    [attr.aria-pressed]="status() === 'absent'"
+    type="button"
+    (click)="changeStatus('absent')"
+  >
+    Absent
+  </button>
+</section>
+<section aria-labelledby="leave-title">
+  <h2 id="leave-title">Mes congés</h2>
+  <app-leave-counter></app-leave-counter>
+</section>

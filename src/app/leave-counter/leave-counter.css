@@ -2,8 +2,3 @@
   color: #b91c1c;
   font-weight: 700;
 }
-
-/* Le bouton du statut choisi est mis en evidence. */
-[aria-pressed='true'] {
-  background-color: #dbeafe;
-}

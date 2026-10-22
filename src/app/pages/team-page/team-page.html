@@ -1,0 +1,30 @@
+<h1 id="team-title">L'équipe</h1>
+
+<!-- [( )] : la recherche circule dans les deux sens entre App et SearchBox. -->
+<!-- search de la classe equivaut a query(), ils pointent vers la meme information -->
+<!-- [] quand tu modifie search (le parent) tu changes la propriété value de l'input qui est dans l'enfant -->
+<!-- () quand on change l'input (l'enfant), sa valeur, on change aussi search le parent -->
+<!-- la logique est dans searchbox -->
+<app-search-box [(query)]="search" />
+<p aria-live="polite">{{ filteredEmployees().length }} collègue(s) affiché(s)</p>
+
+<ul class="team">
+  @for (employee of filteredEmployees(); track employee.id) {
+    <li>
+      <app-employee-card [employee]="employee"></app-employee-card>
+      <!-- aria-label : sans lui, le lecteur d'ecran annonce trois boutons
+"Retirer"
+sans dire lequel retire qui. -->
+      <button
+        type="button"
+        class="remove"
+        [attr.aria-label]="'Retirer ' + employee.firstName + ' ' + employee.lastName"
+        (click)="remove(employee.id)"
+      >
+        Retirer
+      </button>
+    </li>
+  } @empty {
+    <li>Aucun collègue ne correspond à « {{ search() }} ».</li>
+  }
+</ul>
