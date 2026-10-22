@@ -1,0 +1,17 @@
+/* Mobile d'abord : une colonne, puis une grille sur les écrans plus larges. */
+.team {
+  display: grid;
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 40rem) {
+  .team {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 64rem) {
+  .team {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

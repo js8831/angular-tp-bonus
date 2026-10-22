@@ -1,5 +1,5 @@
 <article class="card">
-  <!-- on appelle la variable employee de la classe qui est un input de type employee qui lui
+  <!-- on appelle la variable employee avec les parentèses car c'est un signal de la classe qui est un input de type employee qui lui
   provient de l'interface dans models -->
   <!-- pour eviter de coder en dure ? -->
   <h3 class="card__name">{{ employee().firstName }} {{ employee().lastName }}</h3>
@@ -7,4 +7,5 @@
   <p>{{ employee().department }}</p>
   <!-- Liaison de propriete : l'adresse du lien est construite a partir des donnees. -->
   <a [href]="'mailto:' + employee().email">{{ employee().email }}</a>
+  <app-status-badge [remote]="employee().remote"></app-status-badge>
 </article>

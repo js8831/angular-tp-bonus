@@ -1,0 +1,14 @@
+<label for="search">Rechercher un collègue</label>
+<!-- liaison bi directionnelle - two way binding grace a model qui fonctionne comme un signal ? -->
+<!-- #searchInput : une variable de template qui designe ce champ.
+A chaque frappe, on recopie sa valeur dans le model. -->
+<input
+  #searchInput
+  id="search"
+  type="search"
+  [value]="query()"
+  (input)="query.set(searchInput.value)"
+/>
+
+<!-- Le <label for="search"> est relié au champ par son id : un clic sur le texte 
+    place le curseur dans le champ, et le lecteur d'écran annonce "Rechercher un collègue". -->

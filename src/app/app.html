@@ -58,8 +58,24 @@
 
 <section aria-labelledby="team-title">
   <h2 id="team-title">L'équipe</h2>
-  <app-employee-card></app-employee-card>
-  <app-employee-card></app-employee-card>
+
+  <!-- [( )] : la recherche circule dans les deux sens entre App et SearchBox. -->
+  <!-- search de la classe equivaut a query(), ils pointent vers la meme information -->
+  <!-- [] quand tu modifie search (le parent) tu changes la propriété value de l'input qui est dans l'enfant -->
+  <!-- () quand on change l'input (l'enfant), sa valeur, on change aussi search le parent -->
+  <!-- la logique est dans searchbox -->
+  <app-search-box [(query)]="search" />
+  <p aria-live="polite">{{ filteredEmployees().length }} collègue(s) affiché(s)</p>
+
+  <ul class="team">
+    @for (employee of employees; track employee.id) {
+      <li>
+        <app-employee-card [employee]="employee"></app-employee-card>
+      </li>
+    } @empty {
+      <li>Aucun collègue ne correspond à « {{ search() }} ».</li>
+    }
+  </ul>
 </section>
 
 <!-- Zone d'affichage des pages : elle servira au module 15. -->
