@@ -5,7 +5,7 @@
 <p>En majuscules : {{ userName.toUpperCase() }}</p>
 
 <!-- type="button" : ce bouton ne sert pas a envoyer un formulaire -->
-<button type="button" (click)="sayHello()">Dire Bonjour</button>
+<button matButton="tonal" type="button" (click)="sayHello()">Dire Bonjour</button>
 
 <!-- aria-live : le lecteur d'ecran annonce le message quand il apparait. -->
 <p aria-live="polite">{{ message.toUpperCase() }}</p>
@@ -27,6 +27,7 @@
     Vous êtes : <strong>{{ status() }}</strong>
   </p>
   <button
+    matButton="outlined"
     [attr.aria-pressed]="status() === 'sur site'"
     type="button"
     (click)="changeStatus('sur site')"
@@ -34,6 +35,7 @@
     Sur site
   </button>
   <button
+    matButton="outlined"
     [attr.aria-pressed]="status() === 'en télétravail'"
     type="button"
     (click)="changeStatus('en télétravail')"
@@ -41,6 +43,7 @@
     En teletravail
   </button>
   <button
+    matButton="outlined"
     [attr.aria-pressed]="status() === 'absent'"
     type="button"
     (click)="changeStatus('absent')"

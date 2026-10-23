@@ -1,11 +1,11 @@
-<p>Jours posés : {{ daysTaken() }}</p>
-<!-- aria-live : le lecteur d'ecran annonce le nouveau solde. -->
+<!-- <p>Jours posés : {{ daysTaken() }}</p>
+aria-live : le lecteur d'ecran annonce le nouveau solde. 
 <p aria-live="polite" [class.counter--empty]="isEmpty()">
   Jours restants : {{ remainingDays() }} / {{ totalDays }}
 </p>
-<!-- Le symbole @ indique qu'il s'agit d'une syntaxe propre à Angular (un bloc de contrôle) -->
-<!-- on ne met pas d'arobase pour appeler une fonction dans un template Angular. Le symbole @ est réservé uniquement aux blocs de contrôle natifs du nouveau moteur (comme @if, @for, @switch).
-Pour appeler une fonction ou afficher une variable, on utilise l'interpolation avec des doubles accolades (par exemple {{ maFonction() }}) ou une liaison d'événement/propriété (par exemple (click)="maFonction()"), sans aucun arobase. -->
+Le symbole @ indique qu'il s'agit d'une syntaxe propre à Angular (un bloc de contrôle)
+ on ne met pas d'arobase pour appeler une fonction dans un template Angular. Le symbole @ est réservé uniquement aux blocs de contrôle natifs du nouveau moteur (comme @if, @for, @switch).
+Pour appeler une fonction ou afficher une variable, on utilise l'interpolation avec des doubles accolades (par exemple {{ maFonction() }}) ou une liaison d'événement/propriété (par exemple (click)="maFonction()"), sans aucun arobase.
 
 <p>Vous avez utilisé {{ usedPercent() }} % de vos congés</p>
 
@@ -18,4 +18,32 @@ Pour appeler une fonction ou afficher une variable, on utilise l'interpolation a
 <button type="button" [disabled]="isEmpty()" (click)="addDay()">Poser un jour</button>
 <button type="button" [disabled]="daysTaken() === 0" (click)="removeDay()">Annuler un jour</button>
 <button type="button" (click)="reset()">Remettre à zéro</button>
-<button type="button" (click)="holiday()">Poser une semaine</button>
+<button type="button" (click)="holiday()">Poser une semaine</button> -->
+
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>Solde</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>Jours posés : {{ daysTaken() }}</p>
+    <p aria-live="polite" [class.counter--empty]="isEmpty()">
+      Jours restants : {{ remainingDays() }} / {{ totalDays }}
+    </p>
+    <div class="counter__actions">
+      <!-- matButton="filled" : bouton plein, l'action principale. -->
+      <button matButton="filled" type="button" [disabled]="isEmpty()" (click)="addDay()">
+        Poser un jour
+      </button>
+      <button
+        matButton="outlined"
+        type="button"
+        [disabled]="daysTaken() === 0"
+        (click)="removeDay()"
+      >
+        Annuler un jour
+      </button>
+      <!-- matButton sans valeur : bouton texte, l'action secondaire. -->
+      <button matButton type="button" (click)="reset()">Remettre à zéro</button>
+    </div>
+  </mat-card-content>
+</mat-card>

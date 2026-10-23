@@ -1,10 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { LeaveCounter } from '../../leave-counter/leave-counter';
+import { MatButton } from '@angular/material/button';
 
 type Status = 'sur site' | 'en télétravail' | 'absent';
 
 @Component({
-  imports: [LeaveCounter],
+  imports: [LeaveCounter, MatButton],
   selector: 'app-home',
   styleUrl: './home.css',
   templateUrl: './home.html',

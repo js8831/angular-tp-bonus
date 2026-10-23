@@ -1,25 +1,32 @@
 <h1>TechCorp Equipe</h1>
 
 <header class="header">
-  <span class="app-name">{{ appName }}</span>
-  <nav aria-label="Navigation principale">
-    <!-- routerLink : change de page sans recharger.
-    routerLinkActive : ajoute la classe "active" au lien de la page affichee.
-    ariaCurrentWhenActive : annonce "page actuelle" au lecteur d'ecran. -->
-    <!-- exact: true = cela signifie qu'ici c'est une correspondance exacte "/" et rien apres
-      on est donc bien sur l'accueil avec / uniquement car les autres pages aussi contiennent "/page2" mais avec un mot apres -->
-    <a
-      routerLink="/"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-      ariaCurrentWhenActive="page"
-    >
-      Accueil
-    </a>
+  <mat-toolbar>
+    <span class="app-name">{{ appName }}</span>
+    <nav aria-label="Navigation principale">
+      <!-- routerLink : change de page sans recharger.
+      routerLinkActive : ajoute la classe "active" au lien de la page affichee.
+      ariaCurrentWhenActive : annonce "page actuelle" au lecteur d'ecran. -->
+      <!-- exact: true = cela signifie qu'ici c'est une correspondance exacte "/" et rien apres
+        on est donc bien sur l'accueil avec / uniquement car les autres pages aussi contiennent "/page2" mais avec un mot apres -->
+      <a
+        matButton
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        ariaCurrentWhenActive="page"
+      >
+        Accueil
+      </a>
 
-    <a routerLink="/equipe" routerLinkActive="active" ariaCurrentWhenActive="page">Équipe</a>
-    <a routerLink="/ajouter" routerLinkActive="active" ariaCurrentWhenActive="page">Ajouter</a>
-  </nav>
+      <a matButton routerLink="/equipe" routerLinkActive="active" ariaCurrentWhenActive="page"
+        >Équipe</a
+      >
+      <a matButton routerLink="/ajouter" routerLinkActive="active" ariaCurrentWhenActive="page"
+        >Ajouter</a
+      >
+    </nav>
+  </mat-toolbar>
 </header>
 <main class="container">
   <!-- La page correspondant a l'adresse s'affiche ici. -->
