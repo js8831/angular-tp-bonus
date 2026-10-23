@@ -1,1 +1,36 @@
-<p>add-employee works!</p>
+<!-- (ngSubmit) : appele au clic sur le bouton submit ou avec la touche Entree.
+ A ne pas confondre avec l'evenement (click) qui ne reagirai pas au bouton entrée
+ Et empeche le rechargement via event.preventDefault() qui fait perdre l'état -->
+<form class="form" (ngSubmit)="save()">
+  <div class="field">
+    <label for="first-name">Prénom</label>
+    <!-- 
+  RÈGLE D'OR DES SIGNAUX :
+  - SANS parentèses [ (ngModel)]="firstName" : On donne le signal complet (la télécommande) 
+    car ngModel a besoin de LIRE et d'ÉCRIRE dedans quand tu tapes au clavier.
+  - AVEC parentèses {{ firstName() }} : On veut juste LIRE/afficher la valeur. 
+    (Si on mettait des (), ce serait une valeur figée, lecteure seule : impossible de modifier le signal).
+-->
+    <input id="first-name" name="firstName" [(ngModel)]="firstName" />
+  </div>
+  <div class="field">
+    <label for="last-name">Nom</label>
+    <!-- 
+  RÈGLE POUR NAME :
+  - OBLIGATOIRE avec ngModel à l'intérieur d'un <form>.
+  - Sert d'identifiant unique pour qu'Angular sache à quel champ 
+    associer les données et gérer la validation (erreurs, modification...).
+-->
+    <input id="last-name" name="lastName" [(ngModel)]="lastName" />
+  </div>
+  <div class="field">
+    <label for="email">E-mail</label>
+    <input id="email" name="email" type="email" [(ngModel)]="email" />
+  </div>
+  <div class="field">
+    <label for="job">Poste</label>
+    <input id="job" name="job" [(ngModel)]="job" />
+  </div>
+  <p>Aperçu : {{ firstName() }} {{ lastName() }}, {{ job() }}</p>
+  <button type="submit">Ajouter</button>
+</form>
