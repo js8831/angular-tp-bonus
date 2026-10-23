@@ -38,5 +38,7 @@
   <p>
     Aperçu : {{ employeeForm.firstName().value() }} {{ employeeForm.lastName().value() }},
     {{ employeeForm.job().value() }} ({{ employeeForm.department().value() }})
+    <!-- Si remote est true, affiche "En télétravail", sinon affiche "Sur site" -->
+    {{ employeeForm.remote().value() ? '- En télétravail' : '- Sur site' }}
   </p>
 </form>

@@ -2,3 +2,7 @@
 [aria-pressed='true'] {
   background-color: #dbeafe;
 }
+
+.status-actions {
+  margin-right: 0.5rem;
+}

@@ -27,6 +27,7 @@
     Vous êtes : <strong>{{ status() }}</strong>
   </p>
   <button
+    class="status-actions"
     matButton="outlined"
     [attr.aria-pressed]="status() === 'sur site'"
     type="button"
@@ -35,6 +36,7 @@
     Sur site
   </button>
   <button
+    class="status-actions"
     matButton="outlined"
     [attr.aria-pressed]="status() === 'en télétravail'"
     type="button"
@@ -43,6 +45,7 @@
     En teletravail
   </button>
   <button
+    class="status-actions"
     matButton="outlined"
     [attr.aria-pressed]="status() === 'absent'"
     type="button"
