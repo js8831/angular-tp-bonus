@@ -24,3 +24,9 @@ select {
   align-items: center;
   gap: 0.5rem;
 }
+
+.form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
