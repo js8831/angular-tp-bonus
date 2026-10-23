@@ -1,36 +1,42 @@
-<!-- (ngSubmit) : appele au clic sur le bouton submit ou avec la touche Entree.
- A ne pas confondre avec l'evenement (click) qui ne reagirai pas au bouton entrée
- Et empeche le rechargement via event.preventDefault() qui fait perdre l'état -->
-<form class="form" (ngSubmit)="save()">
+<h1>Ajouter un collègue</h1>
+<form class="form">
   <div class="field">
     <label for="first-name">Prénom</label>
-    <!-- 
-  RÈGLE D'OR DES SIGNAUX :
-  - SANS parentèses [ (ngModel)]="firstName" : On donne le signal complet (la télécommande) 
-    car ngModel a besoin de LIRE et d'ÉCRIRE dedans quand tu tapes au clavier.
-  - AVEC parentèses {{ firstName() }} : On veut juste LIRE/afficher la valeur. 
-    (Si on mettait des (), ce serait une valeur figée, lecteure seule : impossible de modifier le signal).
--->
-    <input id="first-name" name="firstName" [(ngModel)]="firstName" />
+    <!-- [formField] : relie le champ au formulaire, dans les deux sens. -->
+    <input id="first-name" [formField]="employeeForm.firstName" />
   </div>
   <div class="field">
     <label for="last-name">Nom</label>
-    <!-- 
-  RÈGLE POUR NAME :
-  - OBLIGATOIRE avec ngModel à l'intérieur d'un <form>.
-  - Sert d'identifiant unique pour qu'Angular sache à quel champ 
-    associer les données et gérer la validation (erreurs, modification...).
--->
-    <input id="last-name" name="lastName" [(ngModel)]="lastName" />
+    <input id="last-name" [formField]="employeeForm.lastName" />
   </div>
   <div class="field">
     <label for="email">E-mail</label>
-    <input id="email" name="email" type="email" [(ngModel)]="email" />
+    <input id="email" type="email" [formField]="employeeForm.email" />
   </div>
   <div class="field">
     <label for="job">Poste</label>
-    <input id="job" name="job" [(ngModel)]="job" />
+    <input id="job" [formField]="employeeForm.job" />
   </div>
-  <p>Aperçu : {{ firstName() }} {{ lastName() }}, {{ job() }}</p>
-  <button type="submit">Ajouter</button>
+  <div class="field">
+    <label for="department">Service</label>
+    <!-- Le menu déroulant lié au signal du service via [formField] -->
+    <select id="department" [formField]="employeeForm.department">
+      <!-- @for : Boucle moderne pour parcourir chaque élément du tableau 'departments' -->
+      <!-- track : Le "pisteur" qui permet à Angular de suivre l'ordre des éléments -->
+      @for (department of departments; track department) {
+        <!-- L'option affichée : [value] c'est la donnée technique, le texte entre balises c'est ce que l'utilisateur voit -->
+        <option [value]="department">{{ department }}</option>
+      }
+    </select>
+  </div>
+  <!-- Une case a cocher se relie a un booleen. -->
+  <div class="field field--inline">
+    <input id="remote" type="checkbox" [formField]="employeeForm.remote" />
+    <label for="remote">En télétravail</label>
+  </div>
+  <!-- employeeForm.firstName() : l'ETAT du champ. .value() : sa valeur. -->
+  <p>
+    Aperçu : {{ employeeForm.firstName().value() }} {{ employeeForm.lastName().value() }},
+    {{ employeeForm.job().value() }} ({{ employeeForm.department().value() }})
+  </p>
 </form>

@@ -17,3 +17,10 @@ select {
   border-radius: 0.25rem;
   font: inherit;
 }
+
+/* La case a cocher et son libelle sur la meme ligne. */
+.field--inline {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
